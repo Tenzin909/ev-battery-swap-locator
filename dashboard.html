@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>EV Station Locator</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+<header>
+  <h1>EV Battery Swap Station Locator</h1>
+</header>
+
+<div class="container">
+  <h2>Welcome, {{ session['user'] }}</h2>
+
+  <form method="POST">
+    <input type="text" name="query" placeholder="Enter city or pincode" required>
+    <button type="submit">Search</button>
+  </form>
+
+  {% if stations %}
+    {% for s in stations %}
+      <div class="station">
+        <h3>{{ s[1] }}</h3>
+        <p><strong>Address:</strong> {{ s[2] }}</p>
+        <p><strong>City:</strong> {{ s[3] }}</p>
+        <p><strong>Pincode:</strong> {{ s[4] }}</p>
+        <p><strong>Battery Types:</strong> {{ s[5] }}</p>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p style="margin-top: 20px;">No stations found. Try a different city or pincode.</p>
+  {% endif %}
+
+  <p style="margin-top: 20px;"><a href="/logout">Logout</a></p>
+</div>
+
+<footer>
+  &copy; 2025 EV Battery Locator | Built with Flask & PostgreSQL
+</footer>
+
+</body>
+</html>
